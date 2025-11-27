@@ -356,7 +356,7 @@ class _RideConfirmedScreenState extends State<RideConfirmedScreen> {
                               flex: 1,
                               child: NormalCustomIconButton(
                                 icon: Icons.call_outlined,
-                                iconSize: 30,
+                                iconSize: 25,
                                 onPressed: () {
                                   Get.to(CallScreen());
                                 },
@@ -367,7 +367,7 @@ class _RideConfirmedScreenState extends State<RideConfirmedScreen> {
                               flex: 1,
                               child: NormalCustomIconButton(
                                 icon: Icons.messenger_outline,
-                                iconSize: 30,
+                                iconSize: 25,
                                 onPressed: () {
                                   Get.to(ChatScreenRTH());
                                 },
@@ -376,11 +376,25 @@ class _RideConfirmedScreenState extends State<RideConfirmedScreen> {
                             SizedBox(width: 15),
                             Expanded(
                               flex: 3,
+                              child: SmallSemiTranparentButton(
+                                fillColor: Color(0xffBFC1C5),
+                                height: 51,
+                                fontSize: 18,
+                                circularRadious: 30,
+                                textColor: Colors.black,
+                                text: "Cancel Ride",
+                                onPressed: () {
+                                  // Handle cancel
+                                },
+                              ),
+                            ),
+                            Expanded(
+                              flex: 3,
                               child: NormalCustomButton(
                                 height: 51,
                                 fontSize: 18,
                                 circularRadious: 30,
-                                text: "Cancel Ride",
+                                text: "Continue",
                                 onPressed: () {
                                   // Handle cancel
                                 },
