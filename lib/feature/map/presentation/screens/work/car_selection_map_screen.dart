@@ -87,7 +87,7 @@ class _CarSelectionMapScreenState extends State<CarSelectionMapScreen> {
     final current = locationController.currentLocation.value;
     if (current != null) {
       debugPrint(
-        "CarSelectionMapScreen: fetching nearby drivers for ${current.latitude}, ${current.longitude}",
+        " CarSelectionMapScreen: fetching nearby drivers for ${current.latitude}, ${current.longitude}",
       );
       try {
         await homeController.getSearchDestinationForFindNearestDrivers(
