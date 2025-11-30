@@ -56,4 +56,8 @@ class HomeRepository implements HomeRepositoryInterface{
     return await apiClient.getData(Urls.getSearchDestinationForFindNearestDrivers + "latitude="+latitude+ "&longitude=" + longitude);
   }
   
+   @override
+  Future<Response<dynamic>> createPayment(requestModel)async {
+    return await apiClient.postData(Urls.createPayment, requestModel.toJson());
+  }
 }

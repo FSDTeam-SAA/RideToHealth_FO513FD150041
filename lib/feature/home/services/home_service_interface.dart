@@ -1,4 +1,5 @@
 import 'package:get/get_connect/http/src/response/response.dart';
+import 'package:rideztohealth/feature/payment/domain/create_payment_request_model.dart';
 
 abstract class HomeServiceInterface {
 
@@ -14,4 +15,5 @@ abstract class HomeServiceInterface {
   Future<Response> getRecentTrips();
 
   Future<Response> getSearchDestinationForFindNearestDrivers(String latitude, String longitude);
+    Future<Response> createPayment(CreatePaymentRequestModel requestModel);
 }

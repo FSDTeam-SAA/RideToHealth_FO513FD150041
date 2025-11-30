@@ -38,7 +38,6 @@ class _CarSelectionMapScreenState extends State<CarSelectionMapScreen> {
     double hours = distanceKm / 30;
     int minutes = (hours * 60).round();
 
-
     if (minutes < 1) {
       return '1 min';
     } else if (minutes < 60) {
@@ -82,7 +81,6 @@ class _CarSelectionMapScreenState extends State<CarSelectionMapScreen> {
     // homeController = Get.find<HomeController>();
     //   print("this is for print forom car selection 00000000000000");
     // 2. React to changes in currentLocation
-    
   }
 
   void getCarData() async {
@@ -369,7 +367,8 @@ class _CarSelectionMapScreenState extends State<CarSelectionMapScreen> {
                         const SizedBox(height: 2),
                         GetBuilder<HomeController>(
                           builder: (homeController) {
-                            final isBusy = homeController.isLoading ||
+                            final isBusy =
+                                homeController.isLoading ||
                                 locationController.currentLocation.value ==
                                     null;
 
@@ -380,11 +379,12 @@ class _CarSelectionMapScreenState extends State<CarSelectionMapScreen> {
                             }
 
                             final model = homeController
-                                    .getSearchDestinationForFindNearestDriversResponseModel;
+                                .getSearchDestinationForFindNearestDriversResponseModel;
                             final nearbyDrivers = model.data ?? [];
                             _latestNearbyDrivers = nearbyDrivers;
-                            _selectedDriver ??=
-                                nearbyDrivers.isNotEmpty ? nearbyDrivers.first : null;
+                            _selectedDriver ??= nearbyDrivers.isNotEmpty
+                                ? nearbyDrivers.first
+                                : null;
 
                             if (nearbyDrivers.isEmpty) {
                               return const Center(
@@ -433,9 +433,10 @@ class _CarSelectionMapScreenState extends State<CarSelectionMapScreen> {
                                   perKmRate: service.perKmRate,
                                   minimumFare: service.minimumFare,
                                 );
-                                final rating =
-                                    driver.ratings.average.toStringAsFixed(1);
-                                final isSelected = _selectedDriver?.driver.id ==
+                                final rating = driver.ratings.average
+                                    .toStringAsFixed(1);
+                                final isSelected =
+                                    _selectedDriver?.driver.id ==
                                     data.driver.id;
 
                                 return GestureDetector(
@@ -450,8 +451,9 @@ class _CarSelectionMapScreenState extends State<CarSelectionMapScreen> {
                                       horizontal: 15,
                                     ),
                                     decoration: BoxDecoration(
-                                      color:
-                                          isSelected ? Colors.white24 : Colors.white10,
+                                      color: isSelected
+                                          ? Colors.white24
+                                          : Colors.white10,
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
                                         color: isSelected
@@ -464,7 +466,9 @@ class _CarSelectionMapScreenState extends State<CarSelectionMapScreen> {
                                       children: [
                                         // Vehicle Image
                                         ClipRRect(
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
                                           child: Image.network(
                                             carImage,
                                             height: 60,
@@ -530,16 +534,18 @@ class _CarSelectionMapScreenState extends State<CarSelectionMapScreen> {
                                             const SizedBox(height: 4),
 
                                             Obx(
-                                    () => Text(
-                                      _calculateEstimatedTime(
-                                        locationController.distance.value,
-                                      ),
-                                      style: const TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 12,
+                                              () => Text(
+                                                _calculateEstimatedTime(
+                                                  locationController
+                                                      .distance
+                                                      .value,
+                                                ),
+                                                style: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 12,
+                                                ),
                                               ),
-                                    ),
-                                  ),
+                                            ),
                                             // Text(
                                             //   eta,
                                             //   style: const TextStyle(
@@ -560,41 +566,45 @@ class _CarSelectionMapScreenState extends State<CarSelectionMapScreen> {
 
                         const SizedBox(height: 2),
 
-
-                        WideCustomButton(text:  'Choose car', 
-                         onPressed: () {
-                              if (_selectedDriver == null &&
-                                  _latestNearbyDrivers.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content:
-                                        Text('Please select a car to continue'),
+                        WideCustomButton(
+                          text: 'Choose car',
+                          onPressed: () {
+                            if (_selectedDriver == null &&
+                                _latestNearbyDrivers.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'Please select a car to continue',
                                   ),
-                                );
-                                return;
-                              }
-
-                              final chosen = _selectedDriver ??
-                                  (_latestNearbyDrivers.isNotEmpty
-                                      ? _latestNearbyDrivers.first
-                                      : null);
-                              if (chosen == null) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content:
-                                        Text('Please select a car to continue'),
-                                  ),
-                                );
-                                return;
-                              }
-
-                              appController.setCurrentScreen('confirm');
-                              Get.to(
-                                () => ConfirmYourLocationScreen(
-                                  selectedDriver: chosen,
                                 ),
                               );
-                            },),
+                              return;
+                            }
+
+                            final chosen =
+                                _selectedDriver ??
+                                (_latestNearbyDrivers.isNotEmpty
+                                    ? _latestNearbyDrivers.first
+                                    : null);
+                            if (chosen == null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'Please select a car to continue',
+                                  ),
+                                ),
+                              );
+                              return;
+                            }
+
+                            appController.setCurrentScreen('confirm');
+                            Get.to(
+                              () => ConfirmYourLocationScreen(
+                                selectedDriver: chosen,
+                              ),
+                            );
+                          },
+                        ),
 
                         // Choose car button
                         // SizedBox(
