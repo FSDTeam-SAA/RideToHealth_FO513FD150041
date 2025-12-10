@@ -40,7 +40,6 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
           },
           onPageFinished: (_) {
             setState(() => _progress = 1);
-             Get.to(HomeScreen()); 
           },
           onWebResourceError: (error) {
             final message = error.description.isNotEmpty

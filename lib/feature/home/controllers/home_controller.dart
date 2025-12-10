@@ -292,7 +292,6 @@ Future<void> getRecentTrips() async {
         final parsedResponse =
             CreatePaymentResponseModel.fromJson(parsedBody);
         createPaymentResponseModel = parsedResponse;
-        Get.to(HomeScreen());
         return parsedResponse;
       }
 
