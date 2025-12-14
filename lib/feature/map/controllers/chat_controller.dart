@@ -144,6 +144,7 @@ class ChatController extends GetxController {
       messages.refresh();
     }
   }
+
   
   void simulateAgentResponse(String userMessage) {
     isTyping.value = true;
