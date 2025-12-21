@@ -26,6 +26,7 @@ void main() async {
   //   print('App is not first time install');
   // }
 
+
   runApp(MyApp());
 }
 
@@ -97,3 +98,4 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+

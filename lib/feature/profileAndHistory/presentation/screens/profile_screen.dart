@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:rideztohealth/core/extensions/text_extensions.dart';
 import 'package:rideztohealth/feature/auth/controllers/auth_controller.dart';
 import 'package:rideztohealth/feature/profileAndHistory/controllers/profile_and_history_controller.dart';
+import 'package:rideztohealth/feature/profileAndHistory/presentation/screens/account_security_screen.dart';
 import 'package:rideztohealth/feature/profileAndHistory/presentation/screens/edit_profile_screen.dart';
 import 'package:rideztohealth/feature/profileAndHistory/presentation/screens/notifications_screen.dart';
 import 'package:rideztohealth/feature/profileAndHistory/presentation/screens/terms_and_condition.dart';
@@ -212,14 +213,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   },
                 ),
                 _divider(),
-                _buildMenuItem(
-                  Icons.wallet_outlined,
-                  "Wallet",
-                  "Term of services",
-                  onTap: () {
-                    Get.to(() => WalletScreen());
-                  },
-                ),
+                // _buildMenuItem(
+                //   Icons.wallet_outlined,
+                //   "Wallet",
+                //   "Term of services",
+                //   onTap: () {
+                //     Get.to(() => WalletScreen());
+                //   },
+                // ),
                 _divider(),
                 _buildMenuItem(
                   Icons.notifications_outlined,
@@ -227,6 +228,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   "Customize alerts",
                   onTap: () {
                     Get.to(() => NotificationsScreen());
+                  },
+                ),
+                _divider(),
+                _buildMenuItem(
+                  Icons.lock_outline,
+                  "Account Security",
+                  "Change your password",
+                  onTap: () {
+                    Get.to(() => const AccountSecurityScreen());
                   },
                 ),
                 _divider(),

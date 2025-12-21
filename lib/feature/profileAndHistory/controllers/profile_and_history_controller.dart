@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rideztohealth/feature/profileAndHistory/domain/model/get_profile_response_model.dart';
 import 'package:rideztohealth/feature/profileAndHistory/domain/model/update_location_response_model.dart';
 import 'package:rideztohealth/feature/profileAndHistory/domain/model/update_profile_response_model.dart';
 import 'package:rideztohealth/feature/profileAndHistory/domain/model/upload_profile_image_response_model.dart';
+import 'package:rideztohealth/feature/profileAndHistory/domain/model/notification_response_model.dart';
+import 'package:rideztohealth/feature/profileAndHistory/domain/request_model/update_profile_request_model.dart';
 import 'package:rideztohealth/feature/profileAndHistory/services/history_and_profile_service_interface.dart';
 
 class ProfileAndHistoryController extends GetxController implements GetxService {
@@ -18,8 +21,12 @@ class ProfileAndHistoryController extends GetxController implements GetxService 
       UploadProfileImageResponseModel();
   UpdateLocationResponseModel updateLocationResponseModel =
       UpdateLocationResponseModel();
+  NotificationResponseModel notificationResponseModel =
+      NotificationResponseModel();
+  List<AppNotification> notifications = [];
 
   bool isLoading = false;
+  bool notificationsLoading = false;
 
   Future<void> getProfile() async {
     try {
@@ -48,6 +55,36 @@ class ProfileAndHistoryController extends GetxController implements GetxService 
       print("⚠️ Error fetching profile : getProfile : $e\n");
     } finally {
       isLoading = false;
+      update();
+    }
+  }
+
+  Future<void> fetchNotifications({int page = 1, int limit = 20}) async {
+    try {
+      notificationsLoading = true;
+      update();
+
+      final response = await historyAndProfileServiceInterface.getNotifications(
+        page: page,
+        limit: limit,
+      );
+
+      debugPrint("Notifications Status : ${response.statusCode}");
+      debugPrint("Notifications Body : ${response.body}");
+
+      if (response.statusCode == 200) {
+        notificationResponseModel =
+            NotificationResponseModel.fromJson(response.body);
+        notifications = notificationResponseModel.data?.notifications ?? [];
+      } else {
+        notificationResponseModel =
+            NotificationResponseModel.fromJson(response.body);
+        notifications = notificationResponseModel.data?.notifications ?? [];
+      }
+    } catch (e) {
+      print("⚠️ Error fetching notifications : $e\n");
+    } finally {
+      notificationsLoading = false;
       update();
     }
   }
@@ -86,7 +123,7 @@ class ProfileAndHistoryController extends GetxController implements GetxService 
     }
   }
 
-  Future<void> updateProfileImage(String image) async {
+  Future<void> updateProfileImage(XFile image) async {
     try {
       isLoading = true;
       update();
@@ -151,6 +188,36 @@ class ProfileAndHistoryController extends GetxController implements GetxService 
       }
     } catch (e) {
       print("⚠️ Error updating profile : updateLocation : $e\n");
+    } finally {
+      isLoading = false;
+      update();
+    }
+  }
+
+  Future<void> updateUserProfile(
+    UpdateProfileRequestModel requestModel,
+  ) async {
+    try {
+      isLoading = true;
+      update();
+
+      final response = await historyAndProfileServiceInterface
+          .updateUserProfile(requestModel);
+
+      debugPrint("Status Code : ${response.statusCode}");
+      debugPrint("Response Body : ${response.body}");
+
+      if (response.statusCode == 200) {
+        updateProfileResponseModel = UpdateProfileResponseModel.fromJson(
+          response.body,
+        );
+      } else {
+        updateProfileResponseModel = UpdateProfileResponseModel.fromJson(
+          response.body,
+        );
+      }
+    } catch (e) {
+      print("⚠️ Error updating profile : updateUserProfile : $e\n");
     } finally {
       isLoading = false;
       update();

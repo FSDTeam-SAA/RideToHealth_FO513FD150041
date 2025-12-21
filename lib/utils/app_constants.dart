@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 
 class AppConstants {
 
-  static const String token = 'token';
+  static const String accessToken = 'accessToken';
+ 
   static const String refreshToken = 'refreshToken';
 
   static const String appName = 'Ridez To Health';
 
-  static const String baseUrl = 'https://kobeur.onrender.com/api/v1';
+  // static const String baseUrl = 'https://kobeur.onrender.com/api/v1';
+
+  static const String baseUrl = 'http://localhost:5001/api/v1';
 
   // static const String baseUrl = 'https://backend-david-weijian.onrender.com/api/v1';
 
