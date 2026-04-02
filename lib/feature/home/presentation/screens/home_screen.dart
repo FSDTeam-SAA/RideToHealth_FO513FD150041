@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
         print("Nmae form category: $name");
         final savedPlaces =
             homeController.getSavedPlacesResponseModel.data ?? [];
-      
+
         return homeController.isLoading
             ? _buildHomeShimmer(context)
             : Scaffold(
@@ -145,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                   child: SearchDestinationScreen(
-                                     scrollController: controller,
+                                    scrollController: controller,
                                   ),
                                 ),
                               ),
@@ -424,8 +424,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             children:
                                 (homeController
                                             .getAllCategoryResponseModel
-                                            .data
-                                            ??
+                                            .data ??
                                         [])
                                     .map((Services) {
                                       return Padding(
@@ -455,11 +454,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
                         const SizedBox(height: 24),
                         PromoBannerWidget(
-                          title: 'Enjoy 18% off next ride',
+                          title: 'Book your next ride',
                           buttonText: 'Book Now',
-                          onPressed: () {
-                            // Your action
-                          },
+                          onPressed: _openRideBookingFlow,
                           imagePath: 'assets/images/promoImage.png',
                         ),
 
@@ -481,27 +478,6 @@ class _HomeScreenState extends State<HomeScreen> {
       color: Colors.white,
       fontFamily: 'Poppins',
     ),
-  );
-
-  Widget _buildTripTile(String trip) {
-    return ListTile(
-      leading: Icon(Icons.access_time, color: Colors.grey),
-      title: Text(trip),
-      trailing: TextButton(
-        onPressed: () {
-          setState(() {
-            recentTrips.remove(trip);
-          });
-        },
-        child: const Text('Remove', style: TextStyle(color: Colors.red)),
-      ),
-    );
-  }
-
-  Widget _buildSavedTile(String place) => ListTile(
-    leading: Icon(Icons.place_outlined, color: Colors.grey),
-    title: Text(place),
-    subtitle: const Text('Search terminal'),
   );
 
   Widget _buildServiceCard(
@@ -529,11 +505,7 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisSize: MainAxisSize.min,
         children: [
           image.trim().isEmpty
-              ? const Icon(
-                  Icons.broken_image,
-                  size: 40,
-                  color: Colors.grey,
-                )
+              ? const Icon(Icons.broken_image, size: 40, color: Colors.grey)
               : Image.network(
                   image,
                   fit: BoxFit.contain,

@@ -213,6 +213,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                                 fontWeight: FontWeight.w700,
                                 fontFamily: 'Poppins',
                               ),
+                              validator: _emailOrPhoneValidator,
                             ),
                             const SizedBox(height: 6),
                             Text(
