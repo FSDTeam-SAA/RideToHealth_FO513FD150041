@@ -100,10 +100,7 @@ class ConfirmYourLocationScreen extends StatelessWidget {
       final shouldLogin = await Get.dialog<bool>(
         AlertDialog(
           backgroundColor: const Color(0xFF303644),
-          insetPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 16,
-          ),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           title: const Text('Sign in required'),
           content: const Text(
             'You need to sign in to confirm your location and book a ride.',
@@ -113,7 +110,10 @@ class ConfirmYourLocationScreen extends StatelessWidget {
             fontSize: 18,
             fontWeight: FontWeight.w600,
           ),
-          contentTextStyle: TextStyle(color: Colors.white, fontSize: 14),
+          contentTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 14,
+          ),
           actionsPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
           actions: [
             Row(

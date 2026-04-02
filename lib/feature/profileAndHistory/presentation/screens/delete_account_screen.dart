@@ -126,6 +126,24 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
     } else if (confirmed == false) {
       Get.back();
     }
+
+    if (response.statusCode == 200) {
+      await _authController.authServiceInterface.clearUserCredentials();
+      showCustomSnackBar(
+        response.body is Map && response.body['message'] != null
+            ? response.body['message'].toString()
+            : 'Account deleted successfully.',
+      );
+      Get.offAll(() => const UserLoginScreen());
+      return;
+    }
+
+    showCustomSnackBar(
+      response.body is Map && response.body['message'] != null
+          ? response.body['message'].toString()
+          : 'Failed to delete account. Please try again.',
+      isError: true,
+    );
   }
 
   @override
@@ -195,6 +213,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                                 fontWeight: FontWeight.w700,
                                 fontFamily: 'Poppins',
                               ),
+                              validator: _emailOrPhoneValidator,
                             ),
                             const SizedBox(height: 6),
                             Text(
@@ -316,6 +335,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                                   ),
                                 ),
                               ),
+                              validator: _emailOrPhoneValidator,
                             ),
                           ],
                         ),

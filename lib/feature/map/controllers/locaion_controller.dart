@@ -999,3 +999,4 @@ class LocationController extends GetxController {
 //     return distanceInMeters / 1000;
 //   }
 // }
+
